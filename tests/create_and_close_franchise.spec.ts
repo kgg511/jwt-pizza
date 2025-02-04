@@ -17,7 +17,6 @@ test('test', async ({ page }) => {
 
   // http://localhost:3000/api/franchise
   await page.route('*/**/api/franchise', async (route) => {
-    console.log("Intercepted:", route.request().url());
     if (route.request().method() === "GET") {
       const franRes = [
         {

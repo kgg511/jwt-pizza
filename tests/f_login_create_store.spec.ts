@@ -56,7 +56,6 @@ test("franchisee login and create store", async ({ page }) => {
   });
 
   //http://localhost:3000/api/franchise/1/store
-  
   await page.route("*/**/api/franchise/\d+/store", async (route) => {
     expect(route.request().method()).toBe("POST");
     const createReq = { id: "", name: "whoopity" };
@@ -74,14 +73,6 @@ test("franchisee login and create store", async ({ page }) => {
       body: JSON.stringify(createRes),
     });
   });
-
-  // await page.route('**', route => {
-  //   console.log('Intercepted:', route.request().url());
-  //   route.continue();
-  // });
-  
-
-  //`curl -X POST localhost:3000/api/franchise/1/store -H 'Content-Type: application/json' -d '{"franchiseId": 1, "name":"SLC"}' -H 'Authorization: Bearer tttttt'`,
 
   await page.goto("http://localhost:5173/");
   await page.getByRole("link", { name: "Login" }).click();
