@@ -96,17 +96,16 @@ jobs:
       - build
       - deploy
     runs-on: ubuntu-latest
-    env:
-      version: ${{needs.build.outputs.version}}
     steps:
-      - name: Create staging release
+      - name: Create Release
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+        env:
+          version: ${{needs.build.outputs.version}}
         with:
-          tag: stage-version-${{ env.version }}
-          name: Staging ${{ env.version }}
-          generateReleaseNotes: true
+          tag: version-${{ env.version }}
+          name: Version ${{ env.version }}
           body: |
-            ## Description
+            ## 🚀 Changes
 
             ${{ github.event.head_commit.message }}
 
