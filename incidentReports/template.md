@@ -1,4 +1,4 @@
-# Incident: 2025-04-02 10-50-00
+# Incident: 2025-04-02 4-50-00
 
 ## Summary
 All times are UTC.
