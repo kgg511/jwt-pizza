@@ -1,4 +1,4 @@
-# Incident: YYYY-MM-DD HH-mm-ss
+# Incident: 2025-04-02 10-50-00
 
 ## Summary
 All times are UTC.
@@ -69,7 +69,7 @@ After coming in at 5:20AM UTC, Katie observed the incident while already working
 > Note the final root cause of the incident, the thing identified that needs to change in order to prevent this class of incident from happening again.
 
 ```md
-An employee at the pizza factory accidentally deleted their entire database without them realizing, causing their service to go down. To prevent this incident from occurring again, we must get the pizza factory to act more redundancy into their systems or find alternative methods of creating pizzas.
+An employee at the pizza factory accidentally deleted their entire database without them realizing, causing their service to go down. To prevent this incident from occurring again, we must get the pizza factory to add more redundancy into their systems or find alternative methods of creating pizzas.
 ```
 
 ## Resolution
@@ -79,7 +79,7 @@ An employee at the pizza factory accidentally deleted their entire database with
 > Depending on the scenario, consider these questions: How could you improve time to mitigation? How could you have cut that time by half?
 
 ```md
-Katie observed that most metrics looked normal, except for pizza revenue and pizza creation, confirming that the error was likely with the pizza factory. To further investigate, she send requests, and seeing the URL coming back with an easy to understand name, realized that she must run said URL to alert the factory. The factory, receiving the alert, deployed a redundant database, fixing their service, and fired the staff that took a 40 minute bathroom break and accordingly did not notice a deleted database that entire time.
+Katie observed that most metrics looked normal, except for pizza revenue and pizza creation, confirming that the error was likely with the pizza factory. To further investigate, she sent requests, and seeing the URL coming back with an easy to understand name, realized that she must run said URL to alert the factory. The factory, receiving the alert, deployed a redundant database, fixing their service, and fired the staff that took a 40 minute bathroom break and accordingly did not notice a deleted database during that time.
 
 Jwt-pizza likely would have detected the error sooner with more metrics and constant traffic being simulated to the site.
 ```
