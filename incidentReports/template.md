@@ -1,18 +1,14 @@
 # Incident: YYYY-MM-DD HH-mm-ss
 
 ## Summary
-
+All times are UTC.
 > [!NOTE]
 > Write a summary of the incident in a few sentences. Include what happened, why, the severity of the incident and how long the impact lasted.
 
 ```md
-**EXAMPLE**:
+Between the hour of 4:50-5:20AM on 4/2/2025, 10s of users encountered an inability to purchase a pizza. The event was triggered by an error with the pizza factory sometime between 4:50-5:20AM.
 
-Between the hour of {time range of incident, e.g. 15:45 and 16:35} on {DATE}, {NUMBER} users encountered {EVENT SYMPTOMS}. The event was triggered by a {CHANGE} at {TIME OF CHANGE THAT CAUSED THE EVENT}. The {CHANGE} contained {DESCRIPTION OF OR REASON FOR THE CHANGE, such as a change in code to update a system}.
-
-A bug in this code caused {DESCRIPTION OF THE PROBLEM}. The event was detected by {MONITORING SYSTEM}. The team started working on the event by {RESOLUTION ACTIONS TAKEN}. This {SEVERITY LEVEL} incident affected {X%} of users.
-
-There was further impact as noted by {e.g. NUMBER OF SUPPORT TICKETS SUBMITTED, SOCIAL MEDIA MENTIONS, CALLS TO ACCOUNT MANAGERS} were raised in relation to this incident.
+The pizza factory appears to have gone down due to a deleted database. The jwt-pizza team started working on the event by manually sending their own requests to order pizza, finding the reportPizzaCreationErrorToPizzaFactoryUrl, and reporting the error to the factory. This major impact incident affected 80% of users, anyone trying to order a pizza.
 ```
 
 ## Detection
@@ -21,13 +17,9 @@ There was further impact as noted by {e.g. NUMBER OF SUPPORT TICKETS SUBMITTED, 
 > When did the team detect the incident? How did they know it was happening? How could we improve time-to-detection? Consider: How would we have cut that time by half?
 
 ```md
-**EXAMPLE**:
+This incident was detected at 5:23AM UTC when pizza revenue suddenly dropped to 0 and pizza creation failures rapidly increased. Katie Greer was already observing the metrics and observed the issue without any alerts.
 
-This incident was detected when the {ALERT TYPE} was triggered and {TEAM/PERSON} were paged.
-
-Next, {SECONDARY PERSON} was paged, because {FIRST PERSON} didn't own the service writing to the disk, delaying the response by {XX MINUTES/HOURS}.
-
-{DESCRIBE THE IMPROVEMENT} will be set up by {TEAM OWNER OF THE IMPROVEMENT} so that {EXPECTED IMPROVEMENT}.
+To decrease response time in the future, alerts will be set up specifically for pizza creation failures. Alerts set up for all request errors were unable to detect a significant change in errors during this incident, indicating a clear deficiency in error detection with the factory. Additionally, alerts will be set up for metrics like revenue being 0, instead of just having alerts for high values.
 ```
 
 ## Impact
@@ -36,13 +28,9 @@ Next, {SECONDARY PERSON} was paged, because {FIRST PERSON} didn't own the servic
 > Describe how the incident impacted internal and external users during the incident. Include how many support cases were raised.
 
 ```md
-**EXAMPLE**:
+For 44 minutes between 4:50am and 5:34am UTC on 04/02/25, the pizza factory went down, preventing users from ordering pizas. This incident is estimated to have affected 100 internal users, affecting 100% of users ordering pizzas. No external users are thought to have been affected.
 
-For {XXhrs XX minutes} between {XX:XX UTC and XX:XX UTC} on {MM/DD/YY}, {SUMMARY OF INCIDENT} our users experienced this incident.
-
-This incident affected {XX} customers (X% OF {SYSTEM OR SERVICE} USERS), who experienced {DESCRIPTION OF SYMPTOMS}.
-
-{XX NUMBER OF SUPPORT TICKETS AND XX NUMBER OF SOCIAL MEDIA POSTS} were submitted.
+30 support tickets and 329 social media posts were submitted.
 ```
 
 ## Timeline
@@ -52,23 +40,18 @@ This incident affected {XX} customers (X% OF {SYSTEM OR SERVICE} USERS), who exp
 > Include any notable lead-up events, any starts of activity, the first known impact, and escalations. Note any decisions or changed made, and when the incident ended, along with any post-impact events of note.
 
 ```md
-**EXAMPLE**:
 
 All times are UTC.
 
-- _11:48_ - K8S 1.9 upgrade of control plane is finished
-- _12:46_ - Upgrade to V1.9 completed, including cluster-auto scaler and the BuildEng scheduler instance
-- _14:20_ - Build Engineering reports a problem to the KITT Disturbed
-- _14:27_ - KITT Disturbed starts investigating failures of a specific EC2 instance (ip-203-153-8-204)
-- _14:42_ - KITT Disturbed cordons the node
-- _14:49_ - BuildEng reports the problem as affecting more than just one node. 86 instances of the problem show failures are more systemic
-- _15:00_ - KITT Disturbed suggests switching to the standard scheduler
-- _15:34_ - BuildEng reports 200 pods failed
-- _16:00_ - BuildEng kills all failed builds with OutOfCpu reports
-- _16:13_ - BuildEng reports the failures are consistently recurring with new builds and were not just transient.
-- _16:30_ - KITT recognize the failures as an incident and run it as an incident.
-- _16:36_ - KITT disable the Escalator autoscaler to prevent the autoscaler from removing compute to alleviate the problem.
-- _16:40_ - KITT confirms ASG is stable, cluster load is normal and customer impact resolved.
+- 2:00AM: Traffic is simulated to pizza-service.tastetrove.click and looks normal.
+- 3:50AM: Traffic is suspended for 5 minutes.
+- 3:55AM: Traffic is simulated and still looks normal.
+- 4:50AM: Traffic is suspended.
+- 5:20AM: Traffic is simulated again.
+- 5:23AM: Unusually low revenue and a high error rate from pizza creation is detected through human observation.
+- 5:24AM: Katie starts a further investigation of metrics.
+- 5:32AM: Katie manually sends a request to order a pizza, gets the report URL, and submits it to the factory.
+- 5:34AM: Katie confirms that the factory is once again stable and functioning properly.
 ```
 
 ## Response
@@ -77,11 +60,7 @@ All times are UTC.
 > Who responded to the incident? When did they respond, and what did they do? Note any delays or obstacles to responding.
 
 ```md
-**EXAMPLE**:
-
-After receiving a page at {XX:XX UTC}, {ON-CALL ENGINEER} came online at {XX:XX UTC} in {SYSTEM WHERE INCIDENT INFO IS CAPTURED}.
-
-This engineer did not have a background in the {AFFECTED SYSTEM} so a second alert was sent at {XX:XX UTC} to {ESCALATIONS ON-CALL ENGINEER} into the who came into the room at {XX:XX UTC}.
+After coming in at 5:20AM UTC, Katie observed the incident while already working. She was not present during the event that triggered the incident due to a meeting and so only noticed it after she started simulating traffic to the site afterwards.
 ```
 
 ## Root cause
@@ -90,9 +69,7 @@ This engineer did not have a background in the {AFFECTED SYSTEM} so a second ale
 > Note the final root cause of the incident, the thing identified that needs to change in order to prevent this class of incident from happening again.
 
 ```md
-**EXAMPLE**:
-
-A bug in connection pool handling led to leaked connections under failure conditions, combined with lack of visibility into connection state.
+An employee at the pizza factory accidentally deleted their entire database without them realizing, causing their service to go down. To prevent this incident from occurring again, we must get the pizza factory to act more redundancy into their systems or find alternative methods of creating pizzas.
 ```
 
 ## Resolution
@@ -102,11 +79,9 @@ A bug in connection pool handling led to leaked connections under failure condit
 > Depending on the scenario, consider these questions: How could you improve time to mitigation? How could you have cut that time by half?
 
 ```md
-**EXAMPLE**:
-By Increasing the size of the BuildEng EC3 ASG to increase the number of nodes available to support the workload and reduce the likelihood of scheduling on oversubscribed nodes
+Katie observed that most metrics looked normal, except for pizza revenue and pizza creation, confirming that the error was likely with the pizza factory. To further investigate, she send requests, and seeing the URL coming back with an easy to understand name, realized that she must run said URL to alert the factory. The factory, receiving the alert, deployed a redundant database, fixing their service, and fired the staff that took a 40 minute bathroom break and accordingly did not notice a deleted database that entire time.
 
-Disabled the Escalator autoscaler to prevent the cluster from aggressively scaling-down
-Reverting the Build Engineering scheduler to the previous version.
+Jwt-pizza likely would have detected the error sooner with more metrics and constant traffic being simulated to the site.
 ```
 
 ## Prevention
@@ -115,20 +90,16 @@ Reverting the Build Engineering scheduler to the previous version.
 > Now that you know the root cause, can you look back and see any other incidents that could have the same root cause? If yes, note what mitigation was attempted in those incidents and ask why this incident occurred again.
 
 ```md
-**EXAMPLE**:
-
-This same root cause resulted in incidents HOT-13432, HOT-14932 and HOT-19452.
+This is the first time that the factory has gone down while jwt-pizza has been in service, so we have no previous incidents with this root cause.
 ```
 
 ## Action items
-
 > [!NOTE]
 > Describe the corrective action ordered to prevent this class of incident in the future. Note who is responsible and when they have to complete the work and where that work is being tracked.
 
 ```md
-**EXAMPLE**:
-
-1. Manual auto-scaling rate limit put in place temporarily to limit failures
-1. Unit test and re-introduction of job rate limiting
-1. Introduction of a secondary mechanism to collect distributed rate information across cluster to guide scaling effects
+** all actions are the responsibility of Katie, the only person on shift right now **
+1. Within the week, discuss with the pizza-factory the importance of having alerts for critical systems going down instead of relying on solely external reporting.
+2. In the next few days, add additional alerts to catch solely pizza factory errors.
+3. In the next few weeks, look for alternative pizza factories or create a temporary on-site backup in case of future incidents.
 ```
