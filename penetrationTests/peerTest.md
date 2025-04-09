@@ -49,5 +49,40 @@
 | Corrections      | Fix database so that users can update their username and password. Then make sure that all user inputs are sanitized.                                        |
 
 
+
+## 1. Self Attack KangJin Kim
+
+#### Finding 1
+
+| Item | Details |
+|------|---------|
+| Date | 4/8/2025 |
+| Target | https://pizza.byulage.click/ |
+| Classification | Injection |
+| Severity | High |
+| Description | SQL injection possible in the curl updateUser command |
+| Images | const query = `UPDATE user SET ${params.join(', ')} WHERE id=${userId}`; This directly interpolates values into the SQL string, thus direct array interpolation could be exploited.  |
+| Corrections | Added sanitization to Database.js to avoid injection attacks |
+
+## 2. Self Attack KangJin Kim
+#### Finding 2
+
+| Item | Details |
+|------|---------|
+| Date | 4/9/2025 |
+| Target | https://pizza.byulage.click/ |
+| Classification | Injection |
+| Severity | Low |
+| Description | SQL injection possible registering duplicate id |
+| Images |   |
+| Corrections | Added code to Database.js to avoid users with duplicate id|
+
+
+
+
+
+
+
+
 **Combined Summary of Findings**
 Considering all attacks performed in this assignment, we have found that it is important that all user inputs that could get executed in an SQL query need to be sanitized in order to prevent hackers from changing the database. Additionally, whenever any user input is passed in, for example when they order a pizza, all components of the input should be validated using the database, to prevent users from performing invalid actions. Some invalid actions are relatively harmless, like ordering from a non-existent store since this is only possible via curl commands so no regular user would do so accidentally. Other invalid actions, however, like being able to change the price of a pizza, are harmful, so it is important to check all user input, since it is unknown if seemingly harmless attacks could potentially be harmful in the wrong hands. Finally, when code is posted publicly, it is important that no important credentials, especially admin credentials, are left visible where anyone could find and use them.
