@@ -9,11 +9,6 @@
 | Corrections     | Validate more than just the menu id. Verify that important information like price has not been modified.       |
 
 
-
-
-
-
-
 | Self-Attack #2:  | Katherine Greer                                                                                                                                                                                                                                   |
 |------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Date             | 4/7/2025                                                                                                                                                                                                                                          |
@@ -28,7 +23,7 @@
 
 | Peer-Attack #1:  | Hacker: Katherine Greer Victim: KanJim Kim                                                                                                         |
 |------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Date             | 4/10/2025                                                                                                                                          |
+| Date             | 4/9/2025                                                                                                                                          |
 | Target           | pizza.byulage.click                                                                                                                                |
 | Classification   | Security Misconfiguration                                                                                                                          |
 | Severity         | High                                                                                                                                               |
@@ -40,7 +35,7 @@
 
 | Peer-Attack #2:  | Hacker: Katherine Greer Victim: KanJim Kim                                                                                                                   |
 |------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Date             | 4/10/2025                                                                                                                                                    |
+| Date             | 4/9/2025                                                                                                                                                    |
 | Target           | pizza.byulage.click                                                                                                                                          |
 | Classification   | Injection                                                                                                                                                    |
 | Severity         | High (except not because it didn’t work)                                                                                                                     |
@@ -78,11 +73,30 @@
 | Corrections | Added code to Database.js to avoid users with duplicate id|
 
 
+### Attack Against Katie Greer
 
+##### Attack 1. 
+| Item | Details |
+|------|---------|
+| Date | 4/9/2025 |
+| Target | https://pizza.tastetrove.click |
+| Classification | Injection |
+| Severity | LOW |
+| Description |  Attempted admin access testing using SQL injection via input fields |
+| Images |  |
+| Correction | No correction needed because the attack failed |
 
+##### Attack 2. 
 
-
-
+| Item | Details |
+|------|---------|
+| Date | 4/9/2025 |
+| Target | https://pizza.tastetrove.click |
+| Classification | Injection |
+| Severity | LOW |
+| Description |  Attempted injection to change order info via curl code |
+| Images |  |
+| Correction | Need to fix code in database.js since it is possible to order pizza through Non-existing franchise such as "BYU", but wasn't able to change the description or price of pizza|
 
 **Combined Summary of Findings**
 Considering all attacks performed in this assignment, we have found that it is important that all user inputs that could get executed in an SQL query need to be sanitized in order to prevent hackers from changing the database. Additionally, whenever any user input is passed in, for example when they order a pizza, all components of the input should be validated using the database, to prevent users from performing invalid actions. Some invalid actions are relatively harmless, like ordering from a non-existent store since this is only possible via curl commands so no regular user would do so accidentally. Other invalid actions, however, like being able to change the price of a pizza, are harmful, so it is important to check all user input, since it is unknown if seemingly harmless attacks could potentially be harmful in the wrong hands. Finally, when code is posted publicly, it is important that no important credentials, especially admin credentials, are left visible where anyone could find and use them.
