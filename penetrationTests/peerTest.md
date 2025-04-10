@@ -56,7 +56,7 @@
 | Classification | Injection |
 | Severity | High |
 | Description | SQL injection possible in the curl updateUser command |
-| Images | const query = `UPDATE user SET ${params.join(', ')} WHERE id=${userId}`; This directly interpolates values into the SQL string, thus direct array interpolation could be exploited.  |
+| Example | const query = `UPDATE user SET ${params.join(', ')} WHERE id=${userId}`; This directly interpolates values into the SQL string, thus direct array interpolation could be exploited.  |
 | Corrections | Added sanitization to Database.js to avoid injection attacks |
 
 ## 2. Self Attack KangJin Kim
@@ -69,7 +69,7 @@
 | Classification | Injection |
 | Severity | Low |
 | Description | SQL injection possible registering duplicate id |
-| Images |   |
+| Example | registered b@jwt.com with password of 1234, then was also able to register b@jwt.com with password of 9876 |
 | Corrections | Added code to Database.js to avoid users with duplicate id|
 
 
@@ -79,11 +79,11 @@
 | Item | Details |
 |------|---------|
 | Date | 4/9/2025 |
-| Target | https://pizza.tastetrove.click |
+| Target | https://pizza.tastetrove.click/ |
 | Classification | Injection |
 | Severity | LOW |
 | Description |  Attempted admin access testing using SQL injection via input fields |
-| Images |  |
+| Example | tried to inject different password and id |
 | Correction | No correction needed because the attack failed |
 
 ##### Attack 2. 
@@ -91,11 +91,11 @@
 | Item | Details |
 |------|---------|
 | Date | 4/9/2025 |
-| Target | https://pizza.tastetrove.click |
+| Target | https://pizza.tastetrove.click/ |
 | Classification | Injection |
 | Severity | LOW |
 | Description |  Attempted injection to change order info via curl code |
-| Images |  |
+| Example | tried to order from BYU by SQL injection, and also tried to change the price and description of order |
 | Correction | Need to fix code in database.js since it is possible to order pizza through Non-existing franchise such as "BYU", but wasn't able to change the description or price of pizza|
 
 **Combined Summary of Findings**
